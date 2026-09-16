@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="Light aircraft with wing struts">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#17345d"/><stop offset="1" stop-color="#22c5ff"/></linearGradient></defs>
+<g fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M315 185a285 285 0 0 1 570 0" opacity=".65"/>
+  <path d="M215 385h770"/>
+  <path d="M215 385l-110 7M985 385l110 7"/>
+  <path d="M430 385h130M640 385h130"/>
+  <path d="M423 410L250 535M777 410l173 125"/>
+  <path d="M600 385v190"/>
+  <path d="M535 392c19-31 45-47 65-47s46 16 65 47v80H535z"/>
+  <circle cx="600" cy="505" r="40"/>
+  <path d="M600 505l118-49M600 505l-90 73"/>
+  <path d="M540 575l-58 58M660 575l58 58"/>
+  <rect x="460" y="620" width="42" height="68" rx="19"/>
+  <rect x="698" y="620" width="42" height="68" rx="19"/>
+  <rect x="587" y="625" width="26" height="60" rx="12"/>
+  <path d="M222 666c160-31 345-38 378-38 125 0 271 15 378 38" stroke="#22c5ff" opacity=".75"/>
+  <path d="M600 185l150-170" stroke="#22c5ff" stroke-width="15"/>
+</g>
+<g fill="#22c5ff"><path d="M990 510l18 44 44 18-44 18-18 44-18-44-44-18 44-18z"/><path d="M1070 472l10 24 24 10-24 10-10 24-10-24-24-10 24-10z"/></g>
+</svg>
