@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-labelledby="t d">
+<title id="t">Aero-Sense Aircraft Windshield Cleaner</title><desc id="d">Stylized product illustration for Aero-Sense Aircraft Windshield Cleaner.</desc>
+<defs><linearGradient id="bg" x1="0" x2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#e8f1fa"/></linearGradient><linearGradient id="b" x1="0" x2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#d9e5ef"/></linearGradient></defs>
+<rect width="520" height="520" rx="36" fill="url(#bg)"/>
+<ellipse cx="260" cy="458" rx="112" ry="18" fill="#9fb4c9" opacity=".24"/>
+<g transform="translate(150 46)">
+  <rect x="76" y="0" width="68" height="50" rx="10" fill="#111827"/>
+  <rect x="48" y="40" width="124" height="42" rx="12" fill="#c6d6e5"/>
+  <path d="M34 78h152c18 0 32 14 32 32v300c0 24-19 43-43 43H45c-24 0-43-19-43-43V110c0-18 14-32 32-32z" fill="url(#b)" stroke="#9db2c5" stroke-width="4"/>
+  <rect x="20" y="152" width="180" height="210" rx="14" fill="#0e1b31"/>
+  <rect x="20" y="152" width="180" height="18" rx="9" fill="#38d0ff"/>
+  <text x="110" y="204" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#38d0ff">AERO-SENSE</text>
+  <text x="110" y="246" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="900" fill="#ffffff">WINDSHIELD</text>
+  <text x="110" y="278" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#bcd4e9">AIRCRAFT CLEANER</text>
+  <path d="M50 322h120" stroke="#38d0ff" stroke-width="3" opacity=".8"/>
+  <circle cx="110" cy="340" r="9" fill="#38d0ff"/>
+  <text x="110" y="398" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#506a84">AVIATION CARE</text>
+</g>
+</svg>
