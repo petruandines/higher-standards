@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1150" role="img" aria-labelledby="t d">
+<title id="t">Petru &amp; Inés Higher Standards</title>
+<desc id="d">Aircraft cleaning, detailing and cabin care logo.</desc>
+<defs>
+  <linearGradient id="navy" x1="0" x2="1"><stop stop-color="#061a3d"/><stop offset="1" stop-color="#0b3d78"/></linearGradient>
+  <linearGradient id="cyan" x1="0" x2="1"><stop stop-color="#25c6ff"/><stop offset="1" stop-color="#0994e8"/></linearGradient>
+</defs>
+<g transform="translate(115,70) scale(.95)" fill="none" stroke="url(#navy)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M265 290a235 235 0 0 1 470 0"/>
+  <path d="M300 235l-16-39M365 178l-23-36M435 144l-12-43M500 132V84M565 144l12-43M635 178l23-36M700 235l16-39"/>
+  <path d="M500 243l112-128" stroke="#18b9f5" stroke-width="17"/>
+  <path d="M497 116l-17-40h40z" fill="#0b3d78"/>
+  <path d="M115 365h770"/>
+  <path d="M120 365l-63 7M880 365l63 7"/>
+  <path d="M315 365l122 0M563 365l122 0"/>
+  <path d="M316 383L150 497M684 383l166 114" stroke-width="9"/>
+  <path d="M500 365v176"/>
+  <path d="M440 372c17-29 40-43 60-43s43 14 60 43v76H440z" fill="#0b2148" fill-opacity=".22"/>
+  <circle cx="500" cy="475" r="38"/>
+  <path d="M500 475l112-44M500 475l-85 69"/>
+  <path d="M447 535l-52 51M553 535l52 51"/>
+  <rect x="377" y="577" width="39" height="80" rx="18"/>
+  <rect x="584" y="577" width="39" height="80" rx="18"/>
+  <rect x="488" y="585" width="24" height="64" rx="12"/>
+  <path d="M210 675c145-31 354-35 580 0" stroke="url(#cyan)" stroke-width="12"/>
+</g>
+<g fill="#17bafa">
+  <path d="M930 475l20 47 47 20-47 20-20 47-20-47-47-20 47-20z"/>
+  <path d="M1010 430l10 25 25 10-25 10-10 25-10-25-25-10 25-10z"/>
+  <path d="M1035 560l8 20 20 8-20 8-8 20-8-20-20-8 20-8z"/>
+</g>
+<text x="600" y="815" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="110" font-weight="900" letter-spacing="-3" fill="#071f4b">PETRU &amp; INÉS</text>
+<g stroke="#071f4b" stroke-width="10" stroke-linecap="round">
+  <path d="M90 865h170M940 865h170"/>
+  <path d="M112 883h128M960 883h128"/>
+  <path d="M135 900h84M982 900h84"/>
+</g>
+<text x="600" y="900" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="47" font-weight="700" letter-spacing="17" fill="#071f4b">HIGHER STANDARDS</text>
+<text x="600" y="1010" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="800" letter-spacing="6" fill="#11aef0">AIRCRAFT CLEANING  |  DETAILING  |  CABIN CARE</text>
+</svg>
