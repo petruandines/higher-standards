@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 460" role="img" aria-label="Light aircraft cockpit">
+<rect width="700" height="460" rx="34" fill="#eef5fb"/>
+<rect x="36" y="40" width="628" height="378" rx="34" fill="#101c2f"/>
+<path d="M80 175c0-43 35-78 78-78h384c43 0 78 35 78 78v122H80z" fill="#182c48"/>
+<rect x="120" y="154" width="178" height="112" rx="16" fill="#08111f" stroke="#315f92" stroke-width="5"/>
+<rect x="402" y="154" width="178" height="112" rx="16" fill="#08111f" stroke="#315f92" stroke-width="5"/>
+<circle cx="350" cy="226" r="64" fill="#08111f" stroke="#315f92" stroke-width="5"/>
+<path d="M350 226l34-51" stroke="#25c6ff" stroke-width="10" stroke-linecap="round"/><circle cx="350" cy="226" r="8" fill="#25c6ff"/>
+<path d="M188 355c42-57 96-84 162-84s120 27 162 84" fill="none" stroke="#25c6ff" stroke-width="7" opacity=".7"/>
+</svg>
