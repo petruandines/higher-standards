@@ -74,13 +74,19 @@ if (mode === 'prepare') {
   console.log(`Custom domain requested: https://${hostname}/`);
 } else if (mode === 'verify') {
   const baseline = JSON.parse(await readFile('.cloudflare-before.json','utf8'));
+  const canonicalPublication = Boolean(await readFile('_worker.js').catch(() => null));
   let verified = false;
   for (let attempt = 0; attempt < 60; attempt++) {
     try {
       const domain = await api(`${projectPath}/domains/${hostname}`);
       const home = await page(`https://${hostname}/`);
-      if (domain.status === 'active' && home.status === 200 && home.text.includes('Aircraft Cleaning')) { verified = true; break; }
-      console.log(`Waiting for certificate/domain activation (${attempt + 1}/60): ${domain.status}; HTTP ${home.status}`);
+      let publicationReady = true;
+      if (canonicalPublication) {
+        const redirect = await page(`https://${project}.pages.dev/`);
+        publicationReady = home.text.includes(`<link rel="canonical" href="https://${hostname}/">`) && redirect.status === 301 && redirect.location === `https://${hostname}/`;
+      }
+      if (domain.status === 'active' && home.status === 200 && home.text.includes('Aircraft Cleaning') && publicationReady) { verified = true; break; }
+      console.log(`Waiting for domain/deployment propagation (${attempt + 1}/60): ${domain.status}; HTTP ${home.status}; latest publication ${publicationReady}`);
     } catch { console.log(`Waiting for HTTPS/DNS readiness (${attempt + 1}/60)`); }
     await new Promise(resolve => setTimeout(resolve,10000));
   }
@@ -88,7 +94,7 @@ if (mode === 'prepare') {
   for (const path of ['assets/css/style.css','assets/js/script.js','assets/images/logo-full.jpg','assets/images/aircraft-hero.svg']) {
     assert.equal((await page(`https://${hostname}/${path}`)).status,200,path);
   }
-  if (await readFile('_worker.js').catch(() => null)) {
+  if (canonicalPublication) {
     const home = await page(`https://${hostname}/`);
     assert(home.text.includes(`<link rel="canonical" href="https://${hostname}/">`));
     assert(!home.text.includes('https://petruandines.github.io/higher-standards/'));
