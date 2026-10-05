@@ -37,7 +37,7 @@ async function protectedState(zoneId) {
   }
   const main = await api(`/accounts/${account}/pages/projects/petruandines-site`);
   return {
-    dns: records.filter(r => r.name !== hostname).map(({id,type,name,content,proxied,ttl,priority}) => ({id,type,name,content,proxied,ttl,priority})).sort((a,b) => a.id.localeCompare(b.id)),
+    dns: records.filter(r => r.name !== hostname).map(({id,type,name,content,proxied,ttl,priority}) => ({id,type,name,content,proxied,ttl,priority:priority ?? null})).sort((a,b) => a.id.localeCompare(b.id)),
     main: { id: main.id, domains: main.domains, deployment: main.canonical_deployment?.id }
   };
 }
