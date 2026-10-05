@@ -28,6 +28,8 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/higher-standards-tools" --no-save --ignore-scripts --no-audit --no-fund wrangler@4.45.0
       - name: Build public assets and check local links
         run: node scripts/build-pages.mjs
+      - name: Test canonical routing and redirect destinations
+        run: node --test scripts/canonical-routing.test.mjs
       - name: Check isolated target and capture main-site baseline
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

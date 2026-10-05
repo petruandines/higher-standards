@@ -88,6 +88,20 @@ if (mode === 'prepare') {
   for (const path of ['assets/css/style.css','assets/js/script.js','assets/images/logo-full.jpg','assets/images/aircraft-hero.svg']) {
     assert.equal((await page(`https://${hostname}/${path}`)).status,200,path);
   }
+  if (await readFile('_worker.js').catch(() => null)) {
+    const home = await page(`https://${hostname}/`);
+    assert(home.text.includes(`<link rel="canonical" href="https://${hostname}/">`));
+    assert(!home.text.includes('https://petruandines.github.io/higher-standards/'));
+    for (const path of ['/', '/assets/images/logo-full.jpg?source=redirect-check']) {
+      const redirect = await page(`https://${project}.pages.dev${path}`);
+      assert.equal(redirect.status,301);
+      assert.equal(redirect.location,`https://${hostname}${path}`);
+      const destination = await page(redirect.location);
+      assert.equal(destination.status,200);
+      assert.equal(destination.location,null,'Redirect loop at canonical destination');
+    }
+    console.log('VERIFIED: canonical metadata and pages.dev HTTP 301; paths and queries preserved; no redirect loop.');
+  }
   assert.deepEqual(await protectedState(baseline.zoneId),baseline.before,'Main Pages project or unrelated DNS changed.');
   const main = await page('https://petruandines.com/');
   assert.equal(main.status,200);
