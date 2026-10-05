@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
+import { pageDigest as digest } from './page-integrity.mjs';
 
 const account = '47b9f8498a9865c0fbbaca8f0f5cf59d';
 const project = 'petruandines-higher-standards';
@@ -37,7 +37,7 @@ async function protectedState(zoneId) {
   }
   const main = await api(`/accounts/${account}/pages/projects/petruandines-site`);
   return {
-    dns: records.filter(r => r.name !== hostname).map(({id,type,name,content,proxied,ttl,priority}) => ({id,type,name,content,proxied,ttl,priority:priority ?? null})).sort((a,b) => a.id.localeCompare(b.id)),
+    dns: records.filter(r => r.name !== hostname).map(({id,type,name,content,proxied,ttl,priority}) => ({id,type,name,content,proxied,ttl,priority})).sort((a,b) => a.id.localeCompare(b.id)),
     main: { id: main.id, domains: main.domains, deployment: main.canonical_deployment?.id }
   };
 }
@@ -45,7 +45,6 @@ async function page(url) {
   const response = await fetch(url, {redirect:'manual', signal:AbortSignal.timeout(20000)});
   return { status:response.status, location:response.headers.get('location'), text:await response.text() };
 }
-const digest = text => createHash('sha256').update(text).digest('hex');
 const mode = process.argv[2];
 if (mode === 'prepare') {
   const zoneId = await zone();
