@@ -1,80 +1,59 @@
-const toggle = document.querySelector('.menu-toggle');
-const navWrap = document.querySelector('.nav-wrap');
-const links = document.querySelectorAll('.nav a, .header-cta');
-
-if (toggle && navWrap) {
-  const closeMenu = () => {
-    navWrap.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation');
-    document.body.classList.remove('menu-open');
+'use strict';
+(() => {
+  const toggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.nav-wrap');
+  const desktop = window.matchMedia('(min-width: 1100px)');
+  const setMenu = (open, restoreFocus = false) => {
+    menu?.classList.toggle('open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    if (restoreFocus) toggle?.focus();
   };
-
-  toggle.addEventListener('click', () => {
-    const open = navWrap.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-    document.body.classList.toggle('menu-open', open && window.innerWidth <= 900);
-  });
-
-  links.forEach(link => link.addEventListener('click', closeMenu));
-
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeMenu();
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') setMenu(false, true);
   });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 900) closeMenu();
+  document.addEventListener('click', event => {
+    if (event.target instanceof Node && !menu?.contains(event.target) && !toggle?.contains(event.target)) setMenu(false);
   });
-}
-
-const revealItems = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
-
-  revealItems.forEach(el => observer.observe(el));
-} else {
-  revealItems.forEach(el => el.classList.add('show'));
-}
-
-const year = document.getElementById('year');
-if (year) year.textContent = new Date().getFullYear();
-
-const quoteForm = document.getElementById('quote-form');
-if (quoteForm) {
-  quoteForm.addEventListener('submit', event => {
+  document.addEventListener('focusin', event => {
+    if (!desktop.matches && event.target instanceof Node && !menu?.contains(event.target) && !toggle?.contains(event.target)) setMenu(false);
+  });
+  desktop.addEventListener('change', () => setMenu(false));
+  const year = document.getElementById('year');
+  if (year) year.textContent = String(new Date().getFullYear());
+  const form = document.getElementById('quote-form');
+  if (!form) return;
+  const service = document.getElementById('q-service');
+  document.querySelectorAll('[data-service]').forEach(link => link.addEventListener('click', () => {
+    if (service) service.value = link.dataset.service;
+  }));
+  form.addEventListener('submit', event => {
     event.preventDefault();
-
-    const name = document.getElementById('q-name')?.value.trim() || '';
-    const aircraft = document.getElementById('q-aircraft')?.value.trim() || '';
-    const location = document.getElementById('q-location')?.value.trim() || '';
-    const date = document.getElementById('q-date')?.value || '';
-    const service = document.getElementById('q-service')?.value || '';
-    const notes = document.getElementById('q-notes')?.value.trim() || '';
-
+    // Native validation covers required fields; also reject whitespace-only entries.
+    for (const name of ['name', 'aircraft', 'location']) {
+      const input = form.elements.namedItem(name);
+      input.value = input.value.trim();
+    }
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const value = name => String(data.get(name) || '').trim();
     const lines = [
-      'Hello Petru & Inés – Higher Standards,',
-      '',
-      'I would like to request aircraft care.',
-      '',
-      `Name: ${name}`,
-      `Aircraft: ${aircraft}`,
-      `Location / aerodrome: ${location}`,
-      `Service: ${service}`,
-      `Preferred date: ${date || 'Flexible / to discuss'}`,
-      `Notes: ${notes || 'None'}`,
-      '',
-      'I can send photos here if useful.'
+      'Hello Petru & Inés – Higher Standards,', '', 'I would like to request aircraft care.', '',
+      `Name: ${value('name')}`, `Aircraft: ${value('aircraft')}`, `Location / aerodrome: ${value('location')}`,
+      `Service: ${value('service')}`, `Preferred date: ${value('date') || 'Flexible / to discuss'}`,
+      `Notes: ${value('notes') || 'None'}`
     ];
-
-    const message = encodeURIComponent(lines.join('\n'));
-    window.open(`https://wa.me/40772053562?text=${message}`, '_blank', 'noopener');
+    const url = `https://wa.me/40772053562?text=${encodeURIComponent(lines.join('\n'))}`;
+    const status = document.getElementById('form-status');
+    // Keep a visible fallback when the browser blocks new tabs.
+    const fallback = document.createElement('a');
+    fallback.href = url;
+    fallback.target = '_blank';
+    fallback.rel = 'noopener noreferrer';
+    fallback.textContent = 'Open your prepared request in WhatsApp';
+    status?.replaceChildren(fallback);
+    window.open(url, '_blank', 'noopener,noreferrer');
   });
-}
+})();
