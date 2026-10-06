@@ -22,6 +22,12 @@ const url = 'https://higherstandards.petruandines.com/';
       // Scroll all images into view, so lazy loading is also checked.
       for (const img of await page.locator('img').all()) await img.scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.images].every(i => i.complete && i.naturalWidth > 0));
+      const personalPhotos = await page.locator('.personal-hero img, .founders-photo img, .first-flight-photo img').evaluateAll(images => images.map(img => {
+        const r = img.getBoundingClientRect();
+        return { src: img.getAttribute('src'), naturalRatio: img.naturalWidth / img.naturalHeight, displayedRatio: r.width / r.height };
+      }));
+      assert.equal(personalPhotos.length, 3, 'All three personal photographs must be visible');
+      for (const photo of personalPhotos) assert(Math.abs(photo.naturalRatio - photo.displayedRatio) < 0.01, `Personal photograph distorted or cropped: ${photo.src}`);
       const layout = await page.evaluate(() => ({
         viewport: innerWidth, document: document.documentElement.scrollWidth,
         overflow: [...document.querySelectorAll('main *, header *, footer *')].filter(el => {
@@ -59,6 +65,10 @@ const url = 'https://higherstandards.petruandines.com/';
       for (const text of ['Test Petru & Inés', 'Tecnam P92', 'Test aerodrome', '2026-11-16', 'Cabin & upholstery care', 'QA only: accents é & symbols +']) assert(quote.searchParams.get('text').includes(text));
       assert.equal(await page.locator('#form-status a').getAttribute('href'), quote.href);
       await page.screenshot({ path: `qa-results/contact-${width}.png` });
+      await page.locator('.founders-photo').scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `qa-results/founders-${width}.png` });
+      await page.locator('.first-flight-photo').scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `qa-results/first-flight-${width}.png` });
       await page.locator('#top').scrollIntoViewIfNeeded();
       await page.screenshot({ path: `qa-results/hero-${width}.png` });
       await page.screenshot({ path: `qa-results/full-${width}.png`, fullPage: true });

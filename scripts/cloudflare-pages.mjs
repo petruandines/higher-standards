@@ -91,7 +91,7 @@ if (mode === 'prepare') {
     await new Promise(resolve => setTimeout(resolve,10000));
   }
   assert(verified, 'Custom domain is not yet verified; SEO and old-site migration must wait.');
-  for (const path of ['assets/css/style.css','assets/js/script.js','assets/images/logo-full.svg','assets/images/logo-social-20261006.png','assets/images/light-aviation.webp','assets/images/cabin.webp','assets/images/cockpit.webp','assets/images/exterior.webp']) {
+  for (const path of ['assets/css/style.css','assets/js/script.js','assets/images/logo-full.svg','assets/images/logo-social-20261006.png','assets/images/petru-aircraft-cockpit.webp','assets/images/petru-ines-airfield.webp','assets/images/petru-first-flight.webp','assets/images/cabin.webp','assets/images/ulm-cockpit.webp','assets/images/yellow-ultralight.webp']) {
     assert.equal((await page(`https://${hostname}/${path}`)).status,200,path);
   }
   if (canonicalPublication) {
