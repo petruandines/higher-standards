@@ -34,7 +34,7 @@ const url = 'https://higherstandards.petruandines.com/';
       assert(layout.document <= width + 1, `Document overflow at ${width}: ${JSON.stringify(layout)}`);
       assert.deepEqual(layout.overflow, [], `Element overflow at ${width}`);
       assert(!layout.images.some(i => /aircraft-hero.svg|cabin.svg|cockpit.svg/.test(i.src)));
-      const toggle = page.getByRole('button', { name: 'Open navigation', exact: true });
+      const toggle = page.locator('.menu-toggle');
       if (width < 1100) {
         assert(await toggle.isVisible());
         await toggle.click();
@@ -69,3 +69,4 @@ const url = 'https://higherstandards.petruandines.com/';
     }
   } finally { await browser.close(); await writeFile('qa-results/results.json', JSON.stringify(results, null, 2)); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
