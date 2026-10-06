@@ -21,8 +21,29 @@
     if (!desktop.matches && event.target instanceof Node && !menu?.contains(event.target) && !toggle?.contains(event.target)) setMenu(false);
   });
   desktop.addEventListener('change', () => setMenu(false));
+
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
+
+  // Keep the legal policy easy to find without changing the visual hierarchy of the landing page.
+  const footerProvider = document.querySelector('.footer-bottom p:last-child');
+  if (footerProvider && !footerProvider.querySelector('a[href="/legal/"]')) {
+    footerProvider.append(document.createTextNode(' · '));
+    const legalLink = document.createElement('a');
+    legalLink.href = '/legal/';
+    legalLink.textContent = 'Legal & Service Policy';
+    footerProvider.append(legalLink);
+  }
+
+  const formNote = document.querySelector('.form-note');
+  if (formNote && !formNote.querySelector('a[href="/legal/"]')) {
+    formNote.append(document.createTextNode(' Read our '));
+    const legalLink = document.createElement('a');
+    legalLink.href = '/legal/';
+    legalLink.textContent = 'Legal & Service Policy';
+    formNote.append(legalLink, document.createTextNode('.'));
+  }
+
   const form = document.getElementById('quote-form');
   if (!form) return;
   const service = document.getElementById('q-service');
