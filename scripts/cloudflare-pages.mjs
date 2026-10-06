@@ -91,6 +91,11 @@ if (mode === 'prepare') {
     await new Promise(resolve => setTimeout(resolve,10000));
   }
   assert(verified, 'Custom domain is not yet verified; SEO and old-site migration must wait.');
+  const legal = await page(`https://${hostname}/legal/`);
+  assert.equal(legal.status,200);
+  assert(legal.text.includes('<title>Legal &amp; Service Policy') || legal.text.includes('<title>Legal & Service Policy'), 'Legal route returned wrong page');
+  assert(legal.text.includes(`<link rel="canonical" href="https://${hostname}/legal/">`));
+  assert((await page(`https://${hostname}/sitemap.xml`)).text.includes(`https://${hostname}/legal/`));
   for (const path of ['assets/css/style.css','assets/js/script.js','assets/images/logo-full.svg','assets/images/logo-social-20261006.png','assets/images/petru-aircraft-cockpit.webp','assets/images/petru-ines-airfield.webp','assets/images/petru-first-flight.webp','assets/images/cabin.webp','assets/images/ulm-cockpit.webp','assets/images/yellow-ultralight.webp']) {
     assert.equal((await page(`https://${hostname}/${path}`)).status,200,path);
   }
@@ -98,7 +103,7 @@ if (mode === 'prepare') {
     const home = await page(`https://${hostname}/`);
     assert(home.text.includes(`<link rel="canonical" href="https://${hostname}/">`));
     assert(!home.text.includes('https://petruandines.github.io/higher-standards/'));
-    for (const path of ['/', '/assets/images/logo-full.jpg?source=redirect-check']) {
+    for (const path of ['/', '/legal/', '/assets/images/logo-full.jpg?source=redirect-check']) {
       const redirect = await page(`https://${project}.pages.dev${path}`);
       assert.equal(redirect.status,301);
       assert.equal(redirect.location,`https://${hostname}${path}`);
